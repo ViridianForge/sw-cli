@@ -17,12 +17,16 @@ var skateTrickPropertyMap = [][]string{
 }
 
 func init() {
+	rand.Seed(time.Now().UnixNano())
 	rootCmd.AddCommand(randoSkateTrickCmd)
 }
 
 func skateTrickProperty(row int) string {
-	rand.Seed(time.Now().UnixNano())
-	return skateTrickPropertyMap[row][rand.Intn(11)+1]
+	return skateTrickPropertyMap[row][rand.Intn(19)+1]
+}
+
+func randoSkateTrick() string {
+	return fmt.Sprintf("%s %s %s with a %s %s", skateTrickProperty(0), skateTrickProperty(1), skateTrickProperty(2), skateTrickProperty(3), skateTrickProperty(4))
 }
 
 var randoSkateTrickCmd = &cobra.Command{
@@ -30,6 +34,6 @@ var randoSkateTrickCmd = &cobra.Command{
 	Short: "Generates a random skate trick name",
 	Long:  "Generates a skate trick name based on the table available in the standard rule book",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Your skate trick name is %s %s %s with a %s %s\n", skateTrickProperty(0), skateTrickProperty(1), skateTrickProperty(2), skateTrickProperty(3), skateTrickProperty(4))
+		fmt.Printf("Your skate trick name is: %s\n", randoSkateTrick())
 	},
 }
