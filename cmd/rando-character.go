@@ -15,7 +15,7 @@ import (
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
-	rootCmd.AddCommand(randoCharacterCmd)
+	RootCmd.AddCommand(randoCharacterCmd)
 }
 
 /*var randoSpellMap = [][]string{
@@ -88,13 +88,13 @@ var randoCharacterCmd = &cobra.Command{
 		fmt.Print("\t1. Ramp\n")
 		fmt.Print("\t1. Sidewalk\n")
 		fmt.Print("\t1. Rail\n")
-		fmt.Printf("Your rando spell is: %s\n", randoSpell())
+		fmt.Printf("Your rando spell is: %s\n", RandoSpell())
 		fmt.Printf("Your bootleg spell is: %s\n", randoBootleg())
 		fmt.Printf("Your starting items are:\n")
 		fmt.Printf("\t1. %s\n", randoItems[0])
 		fmt.Printf("\t2. %s\n", randoItems[1])
 		fmt.Printf("\t3. %s\n", randoItems[2])
 		fmt.Printf("\t4. %s\n", randoItems[3])
-		fmt.Printf("Your signature skate trick is: %s\n", randoSkateTrick())
+		fmt.Printf("Your signature skate trick is: %s\n", RandoSkateTrick())
 	},
 }

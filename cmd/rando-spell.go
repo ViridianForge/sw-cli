@@ -15,7 +15,7 @@ import (
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
-	rootCmd.AddCommand(randoSpellCmd)
+	RootCmd.AddCommand(randoSpellCmd)
 }
 
 var randoSpellMap = [][]string{
@@ -29,7 +29,7 @@ func randoSpellProperty(row int) string {
 	return randoSpellMap[row][rand.Intn(11)+1]
 }
 
-func randoSpell() string {
+func RandoSpell() string {
 	return fmt.Sprintf("%s %s %s %s", randoSpellProperty(0), randoSpellProperty(1), randoSpellProperty(2), randoSpellProperty(3))
 }
 
@@ -38,6 +38,6 @@ var randoSpellCmd = &cobra.Command{
 	Short: "Generates a random rando spell",
 	Long:  "Generates a rando spell based on the table available in the standard rule book",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Your rando-spell is %s\n", randoSpell())
+		fmt.Printf("Your rando-spell is %s\n", RandoSpell())
 	},
 }
