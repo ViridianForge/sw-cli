@@ -6,15 +6,14 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 package cmd
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
-	"time"
+	"math/big"
 
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
 	RootCmd.AddCommand(randoCharacterCmd)
 }
 
@@ -59,19 +58,31 @@ var bootlegMap = []string{
 }
 
 func randoAbilities() []uint8 {
-	return randoAbilityMap[rand.Intn(5)+1]
+	col, err := rand.Int(rand.Reader, big.NewInt(5))
+	if err != nil {
+		panic(fmt.Sprintf("randoAbilities critically failed during random number generation with error %v", err))
+	}
+	return randoAbilityMap[col.Int64()+1]
 }
 
 func randoItems() []string {
 	items := make([]string, 4)
 	for i := range items {
-		items[i] = (itemMap[rand.Intn(3)+1])
+		item, err := rand.Int(rand.Reader, big.NewInt(5))
+		if err != nil {
+			panic(fmt.Sprintf("randoItems critically failed during random number generation with error %v", err))
+		}
+		items[i] = (itemMap[item.Int64()+1])
 	}
 	return items
 }
 
 func randoBootleg() string {
-	return bootlegMap[rand.Intn(5)+1]
+	col, err := rand.Int(rand.Reader, big.NewInt(5))
+	if err != nil {
+		panic(fmt.Sprintf("randoBootleg critically failed during random number generation with error %v", err))
+	}
+	return bootlegMap[col.Int64()+1]
 }
 
 var randoCharacterCmd = &cobra.Command{

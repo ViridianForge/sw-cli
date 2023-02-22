@@ -6,15 +6,14 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 package cmd
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
-	"time"
+	"math/big"
 
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
 	RootCmd.AddCommand(randoSpellCmd)
 }
 
@@ -26,7 +25,11 @@ var randoSpellMap = [][]string{
 }
 
 func randoSpellProperty(row int) string {
-	return randoSpellMap[row][rand.Intn(11)+1]
+	col, err := rand.Int(rand.Reader, big.NewInt(11))
+	if err != nil {
+		panic(fmt.Sprintf("randoSpellProperty critically failed during random number generation with error %v", err))
+	}
+	return randoSpellMap[row][col.Int64()+1]
 }
 
 func RandoSpell() string {

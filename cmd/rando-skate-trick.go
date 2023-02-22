@@ -6,9 +6,9 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 package cmd
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
-	"time"
+	"math/big"
 
 	"github.com/spf13/cobra"
 )
@@ -22,12 +22,15 @@ var skateTrickPropertyMap = [][]string{
 }
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
 	RootCmd.AddCommand(randoSkateTrickCmd)
 }
 
 func skateTrickProperty(row int) string {
-	return skateTrickPropertyMap[row][rand.Intn(19)+1]
+	col, err := rand.Int(rand.Reader, big.NewInt(19))
+	if err != nil {
+		panic(fmt.Sprintf("skateTrickProperty critically failed during random number generation with error %v", err))
+	}
+	return skateTrickPropertyMap[row][col.Int64()+1]
 }
 
 func RandoSkateTrick() string {

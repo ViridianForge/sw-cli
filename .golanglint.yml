@@ -1,0 +1,23 @@
+run:
+  concurrency: 4
+  timeout: 5m
+  tests: false
+  modules-download-mode: readonly
+  go: '1.19'
+output:
+  format: tab
+  sort-results: true
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - unused
+    - goconst
+    - goimports
+    - gosec
+    - thelper
+    - tparallel
+    - whitespace

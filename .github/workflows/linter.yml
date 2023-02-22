@@ -56,3 +56,4 @@ jobs:
           VALIDATE_YAML: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOLANG_LINT_CONFIG: .golangci.yml
