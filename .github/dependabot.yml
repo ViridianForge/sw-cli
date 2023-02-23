@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod" 
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "ViridianForge"
+    commit-message:
+      prefix: "gomod update"
+    labels:
+      - "dependencies"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "ViridianForge"
+    commit-message:
+      prefix: "GHA update"
+    labels:
+      - "dependencies"
