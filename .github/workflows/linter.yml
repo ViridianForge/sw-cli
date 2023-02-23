@@ -11,9 +11,7 @@ name: Lint Code Base
 #############################
 on:
   push:
-    # TODO - re-enable this when branches turned on for repo
-    # branches-ignore: [main]
-    # Remove the line above to run when pushing to main
+    branches-ignore: [main]
   pull_request:
     branches: [main]
 
