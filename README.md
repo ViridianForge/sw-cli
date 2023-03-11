@@ -29,21 +29,23 @@ Generate a random character stat set to write down on a character sheet.
 
 ```bash
 > ./sw-cli rando-character
-Your ability modifiers are is Strength: +0, Dexterity: +2, Will: +1
-You have 4 Health
-You have 6 Defense
-Your permanent spells are:
-  1. Ramp
-  1. Sidewalk
-  1. Rail
-Your rando spell is: Gnarly Summoning Spirit Tower
-Your bootleg spell is: Wannabe
-Your starting items are:
-  1. Skate Key
-  2. Smoking Pipe
-  3. Lore from Yore
-  4. Staff
-Your signature skate trick is: Side Thwappy Plug with a Wishy Dingle
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄      
+   ▐      ╔══════════SKATE WIZARD═══════╗  ╔════════════════BOOTLEG SPELL══════════════╗  ▌   
+  ▐       ║ PLACEHOLDER                 ║  ║ Gleam the Cube                            ║   ▌  
+ ▐        ╚═════════════════════════════╝  ╚═══════════════════════════════════════════╝    ▌ 
+ ▐        ╔═LVL═╗         ╔═EXP═╗          ╔════════════════════ITEMS══════════════════╗    ▌ 
+▐         ║  1  ║         ║  0  ║          ║ 1. Skate Key                              ║     ▌
+▐         ╚═════╝         ╚═════╝          ║ 2. Torch and Tinder                       ║     ▌
+▐         ╔═HIT═╗         ╔═DEF═╗          ║ 3. Melee Weapon                           ║     ▌
+▐         ║  4  ║         ║  6  ║          ║ 4. Shield                                 ║     ▌
+▐         ╚═════╝         ╚═════╝          ╚═══════════════════════════════════════════╝     ▌
+▐         ╔═STR═╗ ╔═DEX═╗ ╔WILL═╗          ╔════════════════RANDO SPELL════════════════╗     ▌
+▐         ║  0  ║ ║  1  ║ ║  2  ║          ║ Awesome Crushing Air Well                 ║     ▌
+ ▐        ╚═════╝ ╚═════╝ ╚═════╝          ╚═══════════════════════════════════════════╝    ▌ 
+ ▐                                     ╔════════════════SIGNATURE TRICK════════════════╗    ▌ 
+  ▐                                    ║ Greyside Crunchy Blaze with a Stunted Smack   ║   ▌  
+   ▐                                   ╚═══════════════════════════════════════════════╝  ▌   
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     
 ```
 
 ### rando-skate-trick
