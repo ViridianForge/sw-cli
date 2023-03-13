@@ -8,12 +8,18 @@ package cmd
 import (
 	"fmt"
 	"math/rand"
+	"regexp"
 	"time"
 
 	"os"
 
 	"github.com/spf13/cobra"
 )
+
+// Holders for flag data
+var swName string
+
+var nonAlphaNumericRegex = regexp.MustCompile(`[^\p{L}\p{N}\.\/\'\- ]+`)
 
 // Static Game Data
 
@@ -151,11 +157,12 @@ var randoCharacterCmd = &cobra.Command{
 	Short: "Generates a random character",
 	Long:  "Generates a rando character in the standard rule book",
 	Run: func(cmd *cobra.Command, args []string) {
+		cleanedName := nonAlphaNumericRegex.ReplaceAllString(swName, "")
 		randoStats := randoAbilities()
 		randoItems := randoItems()
 		fmt.Printf("    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄      \n")
 		fmt.Printf("   ▐      ╔══════════SKATE WIZARD═══════╗  ╔════════════════BOOTLEG SPELL══════════════╗  ▌   \n")
-		fmt.Printf("  ▐       ║ PLACEHOLDER                 ║  ║ %-41s ║   ▌  \n", randoBootleg())
+		fmt.Printf("  ▐       ║ %-27s ║  ║ %-41s ║   ▌  \n", cleanedName, randoBootleg())
 		fmt.Printf(" ▐        ╚═════════════════════════════╝  ╚═══════════════════════════════════════════╝    ▌ \n")
 		fmt.Printf(" ▐        ╔═LVL═╗         ╔═EXP═╗          ╔════════════════════ITEMS══════════════════╗    ▌ \n")
 		fmt.Printf("▐         ║  1  ║         ║  0  ║          ║ 1. %-38s ║     ▌\n", randoItems[0])
@@ -197,7 +204,9 @@ func init() {
 	}
 
 	// Add all commands
+	randoCharacterCmd.Flags().StringVarP(&swName, "name", "n", "Steve", "a non-random name for a random Skate Wizard")
 	rootCmd.AddCommand(randoCharacterCmd)
+
 	rootCmd.AddCommand(randoSkateTrickCmd)
 	rootCmd.AddCommand(randoSpellCmd)
 }
