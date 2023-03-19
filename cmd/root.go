@@ -6,9 +6,13 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 package cmd
 
 import (
+	"crypto/rand"
+	crand "crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
+	mrand "math/rand"
 	"regexp"
+	"sort"
 	"time"
 
 	"os"
@@ -18,6 +22,7 @@ import (
 
 // Holders for flag data
 var swName string
+var rollType string
 
 var nonAlphaNumericRegex = regexp.MustCompile(`[^\p{L}\p{N}\.\/\'\- ]+`)
 
@@ -74,15 +79,15 @@ var randoSpellMap = [][]string{
 // Randomization Methods
 
 func shuffleStringSlice(slice []string) {
-	rand.Seed(time.Now().UnixMicro())
-	rand.Shuffle(len(slice), func(i int, j int) {
+	mrand.Seed(time.Now().UnixMicro())
+	mrand.Shuffle(len(slice), func(i int, j int) {
 		slice[i], slice[j] = slice[j], slice[i]
 	})
 }
 
 func shuffleAbilities(abilities [][]uint8) {
-	rand.Seed(time.Now().UnixMicro())
-	rand.Shuffle(len(abilities), func(i int, j int) {
+	mrand.Seed(time.Now().UnixMicro())
+	mrand.Shuffle(len(abilities), func(i int, j int) {
 		abilities[i], abilities[j] = abilities[j], abilities[i]
 	})
 }
@@ -113,6 +118,34 @@ func randoAbilities() []uint8 {
 
 func randoItems() []string {
 	return itemMap[:4]
+}
+
+func gameRoll(dice int, modifier string) int {
+	max := big.NewInt(6)
+	rolled_dice := make([]int, 3)
+	for i, _ := range rolled_dice {
+		randInt, err := crand.Int(rand.Reader, max)
+		if err != nil {
+			fmt.Println("sw-cli encountered a critical error generating random numbers: ", err)
+			os.Exit(2)
+		}
+		rolled_dice[i] = int(randInt.Uint64()) + 1
+	}
+	// Sort the list
+	switch modifier {
+	case "disadvantage":
+		sort.Ints(rolled_dice)
+	case "advantage":
+		sort.Sort(sort.Reverse(sort.IntSlice(rolled_dice)))
+	default:
+		break
+	}
+	// Sum the number of dice needed.
+	roll_total := 0
+	for i := 0; i < dice; i++ {
+		roll_total += rolled_dice[i]
+	}
+	return roll_total
 }
 
 // COMMANDS
@@ -149,6 +182,25 @@ var randoSpellCmd = &cobra.Command{
 	Long:  "Generates a rando spell based on the table available in the standard rule book",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Your rando-spell is %s\n", randoSpell())
+	},
+}
+
+var randoDiceCmd = &cobra.Command{
+	Use:   "rando-roll",
+	Short: "Rolls some dice",
+	Long:  "Rolls a number of dice",
+	Run: func(cmd *cobra.Command, args []string) {
+		switch rollType {
+		case "initiative":
+			fmt.Printf("Initiatve roll: %d\n", gameRoll(1, "none"))
+		case "advantage":
+			fmt.Printf("Advantaged roll: %d\n", gameRoll(2, "advantage"))
+		case "disadvantage":
+			fmt.Printf("Disadvantaged roll: %d\n", gameRoll(2, "disadvantage"))
+		default:
+			fmt.Printf("Just a roll %d\n", gameRoll(2, "none"))
+		}
+
 	},
 }
 
@@ -209,4 +261,7 @@ func init() {
 
 	rootCmd.AddCommand(randoSkateTrickCmd)
 	rootCmd.AddCommand(randoSpellCmd)
+
+	randoDiceCmd.Flags().StringVarP(&rollType, "roll", "r", "danger", "the type of random roll to make")
+	rootCmd.AddCommand(randoDiceCmd)
 }
