@@ -122,30 +122,30 @@ func randoItems() []string {
 
 func gameRoll(dice int, modifier string) int {
 	max := big.NewInt(6)
-	rolled_dice := make([]int, 3)
-	for i, _ := range rolled_dice {
+	rolledDice := make([]int, 3)
+	for i := range rolledDice {
 		randInt, err := crand.Int(rand.Reader, max)
 		if err != nil {
 			fmt.Println("sw-cli encountered a critical error generating random numbers: ", err)
 			os.Exit(2)
 		}
-		rolled_dice[i] = int(randInt.Uint64()) + 1
+		rolledDice[i] = int(randInt.Uint64()) + 1
 	}
 	// Sort the list
 	switch modifier {
 	case "disadvantage":
-		sort.Ints(rolled_dice)
+		sort.Ints(rolledDice)
 	case "advantage":
-		sort.Sort(sort.Reverse(sort.IntSlice(rolled_dice)))
+		sort.Sort(sort.Reverse(sort.IntSlice(rolledDice)))
 	default:
 		break
 	}
 	// Sum the number of dice needed.
-	roll_total := 0
+	rollTotal := 0
 	for i := 0; i < dice; i++ {
-		roll_total += rolled_dice[i]
+		rollTotal += rolledDice[i]
 	}
-	return roll_total
+	return rollTotal
 }
 
 // COMMANDS
