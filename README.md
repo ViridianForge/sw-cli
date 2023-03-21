@@ -27,11 +27,15 @@ Three reasons:
 
 Generate a random character stat set to write down on a character sheet.
 
+#### name
+
+Specifies the name of the random Skate Wizard.  Defaults to `Steve`.
+
 ```bash
 > ./sw-cli rando-character
     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄      
    ▐      ╔══════════SKATE WIZARD═══════╗  ╔════════════════BOOTLEG SPELL══════════════╗  ▌   
-  ▐       ║ PLACEHOLDER                 ║  ║ Gleam the Cube                            ║   ▌  
+  ▐       ║ STEVE                       ║  ║ Gleam the Cube                            ║   ▌  
  ▐        ╚═════════════════════════════╝  ╚═══════════════════════════════════════════╝    ▌ 
  ▐        ╔═LVL═╗         ╔═EXP═╗          ╔════════════════════ITEMS══════════════════╗    ▌ 
 ▐         ║  1  ║         ║  0  ║          ║ 1. Skate Key                              ║     ▌
@@ -64,6 +68,25 @@ Generates a random spell.
 ```bash
 > ./sw-cli rando-spell
 Your rando-spell is Dope Duplicating Water Bread
+```
+
+### rando-roll
+
+Rolls a number of virtual six sided dice, based on parameters.
+
+#### roll
+
+Using `--roll` or `-r`, specify the kind of roll you'd like.
+Valid arguments are: `advantage`, `danger`, `disadvantage`, `initiative`.
+Defaults to `danger`.
+
+```bash
+> ./sw-cli rando-roll
+Danger roll: 9
+> ./sw-cli rando-roll -r initiative
+Initiative roll: 4
+> ./sw-cli rando-roll --roll advantage
+Advantaged roll: 10
 ```
 
 ## More cool SkateWizards content
